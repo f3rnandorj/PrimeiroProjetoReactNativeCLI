@@ -17,9 +17,8 @@ export function AppRoutes() {
         headerBackVisible: 'false',
         headerTitleStyle: {
           color: '#fff',
-        }
-        } 
-      }
+        },
+      }}
     >
       <Screen name="Home" component={Main} />
       <Screen name="Usuários" component={User} />
