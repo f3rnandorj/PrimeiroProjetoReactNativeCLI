@@ -20,8 +20,8 @@ export function AppRoutes() {
         },
       }}
     >
-      <Screen name="Home" component={Main} />
-      <Screen name="Usuários" component={User} />
+      <Screen name="Usuários" component={Main} />
+      <Screen name="Perfil" component={User} />
     </Navigator>
   );
 }
