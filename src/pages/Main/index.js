@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Keyboard, ActivityIndicator } from 'react-native';
 
@@ -22,7 +23,17 @@ import {
   ProfileButtonText,
 } from './styles';
 
-export class Main extends Component {
+export default class Main extends Component {
+  static navigationOptions = {
+    title: 'Usuários',
+  };
+
+  static propTypes = {
+    navigation: PropTypes.shape({
+      navigate: PropTypes.func,
+    }).isRequired,
+  };
+
   state = {
     users: [],
     newUser: '',
@@ -69,6 +80,12 @@ export class Main extends Component {
     Keyboard.dismiss();
   };
 
+  handleNavigate = (user) => {
+    const { navigation } = this.props;
+
+    navigation.navigate('User', { user });
+  };
+
   render() {
     const { users, newUser, loading } = this.state;
 
@@ -82,7 +99,7 @@ export class Main extends Component {
             value={newUser}
             onChangeText={(text) => this.setState({ newUser: text })} //função que vai adicionar o text dentro do estado newUser
             returnKeyType="send"
-            onSubmitEditing={this.handleAddUser}
+            onSubmitEditing={() => this.handleAddUser()}
           />
           <SubmitButton loading={loading} onPress={this.handleAddUser}>
             {loading ? (
@@ -102,7 +119,7 @@ export class Main extends Component {
               <Name>{item.name}</Name>
               <Bio>{item.bio}</Bio>
 
-              <ProfileButton onPress={() => {}}>
+              <ProfileButton onPress={() => this.handleNavigate(item)}>
                 <ProfileButtonText>Ver o perfil!</ProfileButtonText>
               </ProfileButton>
             </User>
